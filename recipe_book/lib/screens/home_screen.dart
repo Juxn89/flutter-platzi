@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'recipe_detail.dart';
+
 class HomeScreen extends StatelessWidget {
 	const HomeScreen({ super.key });
 
@@ -8,8 +10,8 @@ class HomeScreen extends StatelessWidget {
 		return Scaffold(
 			body: Column(
 				children: <Widget>[
-					_RecipesCard(context),
-					_RecipesCard(context)
+					recipesCard(context),
+					recipesCard(context)
 				],
 			),
 			floatingActionButton: FloatingActionButton(
@@ -42,45 +44,49 @@ class HomeScreen extends StatelessWidget {
 		);
 	}
 
-	Widget _RecipesCard(BuildContext context) {
-		return Padding(
-			padding: const EdgeInsets.all(8.0),
-			child: Container(
-				width: MediaQuery.of(context).size.width,
-				height: 125,
-				child: Card(
-					child: Row(
-						children: <Widget>[
-							Container(
-								height: 125,
-								width: 100,
-								child: ClipRRect(
-									borderRadius: BorderRadius.circular(12),
-									child: Image.network('https://static.platzi.com/media/uploads/flutter_lasana_b894f1aee1.jpg', fit: BoxFit.cover,),
+	Widget recipesCard(BuildContext context) {
+		return GestureDetector(
+			onTap: () {
+				Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetail(recipeName: 'Lassagna')));
+			},
+			child: Padding(
+				padding: const EdgeInsets.all(8.0),
+				child: Container(
+					width: MediaQuery.of(context).size.width,
+					height: 125,
+					child: Card(
+						child: Row(
+							children: <Widget>[
+								Container(
+									height: 125,
+									width: 100,
+									child: ClipRRect(
+										borderRadius: BorderRadius.circular(12),
+										child: Image.network('https://static.platzi.com/media/uploads/flutter_lasana_b894f1aee1.jpg', fit: BoxFit.cover,),
+									),
 								),
-							),
-							SizedBox(width: 26,),
-							Column(
-								mainAxisAlignment: MainAxisAlignment.center,
-								crossAxisAlignment: CrossAxisAlignment.start,
-								children: <Widget>[
-									Text('Lassagna', style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
-									SizedBox(height: 4),
-									Container(
-										height: 2,
-										width: 75,
-										color: Colors.lightBlueAccent,
-									),							
-									Text('Juan Gómez', style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
-									SizedBox(height: 4)
-							])
-						],
+								SizedBox(width: 26,),
+								Column(
+									mainAxisAlignment: MainAxisAlignment.center,
+									crossAxisAlignment: CrossAxisAlignment.start,
+									children: <Widget>[
+										Text('Lassagna', style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
+										SizedBox(height: 4),
+										Container(
+											height: 2,
+											width: 75,
+											color: Colors.lightBlueAccent,
+										),							
+										Text('Juan Gómez', style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
+										SizedBox(height: 4)
+								])
+							],
+						),
 					),
 				),
-			),
+			)
 		);
 	}
-
 }
 
 
@@ -89,17 +95,17 @@ class RecipeForm extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		final _formKey = GlobalKey<FormState>();
+		final formKey = GlobalKey<FormState>();
 
-		final TextEditingController _nameController = TextEditingController();
-		final TextEditingController _authorController = TextEditingController();
-		final TextEditingController _imageUrlController = TextEditingController();
-		final TextEditingController _recipeController = TextEditingController();
+		final TextEditingController nameController = TextEditingController();
+		final TextEditingController authorController = TextEditingController();
+		final TextEditingController imageUrlController = TextEditingController();
+		final TextEditingController recipeController = TextEditingController();
 
 		return Padding(
 			padding: EdgeInsets.all(12),
 			child: Form(
-				key: _formKey,
+				key: formKey,
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
@@ -108,18 +114,18 @@ class RecipeForm extends StatelessWidget {
 							style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal),
 							),
 						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Recipe name', controller: _nameController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe name'; } return null; }),
+						_buildTextField(labelText: 'Recipe name', controller: nameController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe name'; } return null; }),
 						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Author', controller: _authorController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an author'; } return null; }),
+						_buildTextField(labelText: 'Author', controller: authorController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an author'; } return null; }),
 						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Image URL', controller: _imageUrlController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an image URL'; } return null; }),
+						_buildTextField(labelText: 'Image URL', controller: imageUrlController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an image URL'; } return null; }),
 						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Recipe', controller: _recipeController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe'; } return null; }, maxLines: 4),
+						_buildTextField(labelText: 'Recipe', controller: recipeController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe'; } return null; }, maxLines: 4),
 						SizedBox(height: 16,),
 						Center(
 							child: ElevatedButton(
 								onPressed: () => {
-									if(_formKey.currentState!.validate()) {
+									if(formKey.currentState!.validate()) {
 										Navigator.pop(context)
 									}
 								},

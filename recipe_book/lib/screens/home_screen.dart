@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:recipe_book/const/colors.dart';
 
 import 'recipe_detail.dart';
 
@@ -9,12 +10,22 @@ class HomeScreen extends StatelessWidget {
 	const HomeScreen({ super.key });
 
 	Future<List<dynamic>> fetchRecipe() async {
-		final RECIPE_URL = Uri.parse('https://static.platzi.com/media/public/uploads/recipes_5c04ed3a-72d2-497a-afb8-2d49c297101a.json');
+		final RECIPE_URL = Uri.parse('httpp://static.platzi.com/media/public/uploads/recipes_5c04ed3a-72d2-497a-afb8-2d49c297101a.json');
 
-		final response = await http.get(RECIPE_URL);
-		final data = jsonDecode(response.body);
+		try {
+			final response = await http.get(RECIPE_URL);
 
-		return data['recipes'];
+			if(response.statusCode != 200){
+				print('Error fetching recipes: ${response.statusCode}');
+				return [];
+			}
+
+			final data = jsonDecode(response.body);
+			return data['recipes'];
+		} catch (error) {
+			print('Error fetching recipes: $error');
+			return [];
+		}
 	}
 
 	@override
@@ -24,6 +35,15 @@ class HomeScreen extends StatelessWidget {
 				future: fetchRecipe(), 
 				builder: (context, snapshot) {
 					final recipes = snapshot.data ?? [];
+
+					if(snapshot.connectionState == ConnectionState.waiting) {
+						return Center(child: CircularProgressIndicator());
+					}
+
+					if(snapshot.hasData == false || snapshot.data!.isEmpty) {
+						return Center(child: Text('There are no recipes available 😭.'));
+					}
+
 					return ListView.builder(
 						itemCount: recipes.length,
 						itemBuilder: (context, index) {
@@ -33,8 +53,8 @@ class HomeScreen extends StatelessWidget {
 				}
 			),
 			floatingActionButton: FloatingActionButton(
-				backgroundColor: Colors.orangeAccent,
-				child: Icon(Icons.add, color: Colors.black,),
+				backgroundColor: kTeal,
+				child: Icon(Icons.add, color: Colors.white,),
 				onPressed: () {  _showButton(context); },),
 		);
 	}
@@ -106,6 +126,7 @@ class HomeScreen extends StatelessWidget {
 		);
 	}
 }
+
 class RecipeForm extends StatelessWidget {
 	const RecipeForm({super.key});
 
@@ -146,10 +167,18 @@ class RecipeForm extends StatelessWidget {
 									}
 								},
 								style: ElevatedButton.styleFrom(
-									backgroundColor: Colors.teal,
+									backgroundColor: Colors.teal,									
 									shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
 								),
-								child: Text('Submit', style: TextStyle(fontFamily: 'Quicksand', fontSize: 16, fontWeight: FontWeight.bold, ),),
+								child: Text(
+									'Submit', 
+									style: TextStyle(
+										fontFamily: 'Quicksand', 
+										fontSize: 16, 
+										fontWeight: 
+										FontWeight.bold,
+										color: Colors.white
+									),),
 							),
 						)
 					],

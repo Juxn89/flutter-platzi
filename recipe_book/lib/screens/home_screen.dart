@@ -1,18 +1,36 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'recipe_detail.dart';
 
 class HomeScreen extends StatelessWidget {
 	const HomeScreen({ super.key });
 
+	Future<List<dynamic>> fetchRecipe() async {
+		final RECIPE_URL = Uri.parse('https://static.platzi.com/media/public/uploads/recipes_5c04ed3a-72d2-497a-afb8-2d49c297101a.json');
+
+		final response = await http.get(RECIPE_URL);
+		final data = jsonDecode(response.body);
+
+		return data['recipes'];
+	}
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			body: Column(
-				children: <Widget>[
-					recipesCard(context),
-					recipesCard(context)
-				],
+			body: FutureBuilder<List<dynamic>>(
+				future: fetchRecipe(), 
+				builder: (context, snapshot) {
+					final recipes = snapshot.data ?? [];
+					return ListView.builder(
+						itemCount: recipes.length,
+						itemBuilder: (context, index) {
+							return recipesCard(context, recipes[index]);
+						}
+					);
+				}
 			),
 			floatingActionButton: FloatingActionButton(
 				backgroundColor: Colors.orangeAccent,
@@ -44,10 +62,10 @@ class HomeScreen extends StatelessWidget {
 		);
 	}
 
-	Widget recipesCard(BuildContext context) {
+	Widget recipesCard(BuildContext context, dynamic recipe) {
 		return GestureDetector(
 			onTap: () {
-				Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetail(recipeName: 'Lassagna')));
+				Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetail(recipeName: recipe['name'])));
 			},
 			child: Padding(
 				padding: const EdgeInsets.all(8.0),
@@ -62,7 +80,7 @@ class HomeScreen extends StatelessWidget {
 									width: 100,
 									child: ClipRRect(
 										borderRadius: BorderRadius.circular(12),
-										child: Image.network('https://static.platzi.com/media/uploads/flutter_lasana_b894f1aee1.jpg', fit: BoxFit.cover,),
+										child: Image.network(recipe['image_link'], fit: BoxFit.cover,),
 									),
 								),
 								SizedBox(width: 26,),
@@ -70,14 +88,14 @@ class HomeScreen extends StatelessWidget {
 									mainAxisAlignment: MainAxisAlignment.center,
 									crossAxisAlignment: CrossAxisAlignment.start,
 									children: <Widget>[
-										Text('Lassagna', style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
+										Text(recipe['name'], style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
 										SizedBox(height: 4),
 										Container(
 											height: 2,
 											width: 75,
 											color: Colors.lightBlueAccent,
 										),							
-										Text('Juan Gómez', style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
+										Text(recipe['author'], style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
 										SizedBox(height: 4)
 								])
 							],
@@ -88,8 +106,6 @@ class HomeScreen extends StatelessWidget {
 		);
 	}
 }
-
-
 class RecipeForm extends StatelessWidget {
 	const RecipeForm({super.key});
 

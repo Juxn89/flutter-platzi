@@ -5,192 +5,204 @@ import 'package:recipe_book/providers/recipes_provider.dart';
 import 'recipe_detail.dart';
 import 'package:recipe_book/const/colors.dart';
 
-class HomeScreen extends StatelessWidget {
-	const HomeScreen({ super.key });
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({ super.key });
 
-	@override
-	Widget build(BuildContext context) {
-		final recipesProvider = Provider.of<RecipesProvider>(context, listen: false);
-		recipesProvider.fetchRecipe();
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-		return Scaffold(
-			body: Consumer<RecipesProvider>(
-				builder: (context, provider, child) {
-					if(provider.isLoading) {
-						return Center(child: CircularProgressIndicator());
-					}
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Ejecutar fetchRecipe después del primer frame para evitar notificar durante build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final recipesProvider = Provider.of<RecipesProvider>(context, listen: false);
+      recipesProvider.fetchRecipe();
+    });
+  }
 
-					final recipes = provider.recipes ?? [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Consumer<RecipesProvider>(
+        builder: (context, provider, child) {
+          if(provider.isLoading) {
+            return Center(child: CircularProgressIndicator());
+          }
 
-					if(recipes.isEmpty) {
-						return Center(child: Text('There are no recipes available 😭.'));
-					}
+          final recipes = provider.recipes ?? [];
 
-					return ListView.builder(
-						itemCount: recipes.length,
-						itemBuilder: (context, index) {
-							return recipesCard(context, recipes[index]);
-						}
-					);
-				}
-			),
-			floatingActionButton: FloatingActionButton(
-				backgroundColor: kTeal,
-				child: Icon(Icons.add, color: Colors.white,),
-				onPressed: () {  _showButton(context); },),
-		);
-	}
+          if(recipes.isEmpty) {
+            return Center(child: Text('There are no recipes available 😭.'));
+          }
 
-	Future<void> _showButton(BuildContext context) {
-		return showModalBottomSheet(
-			context: context,
-			isScrollControlled: true, 
-			builder: (context) => GestureDetector(
-				behavior: HitTestBehavior.opaque,
-				onTap: () => FocusScope.of(context).unfocus(),
-				child: Padding(
-					padding: EdgeInsets.only(
-						bottom: MediaQuery.of(context).viewInsets.bottom,
-					),
-					child: Container(
-						padding: EdgeInsets.all(16.0),
-						width: MediaQuery.of(context).size.width,
-						height: 600,
-						color: Colors.white,
-						child: RecipeForm()
-					)
-				),
-			)
-		);
-	}
+          return ListView.builder(
+            itemCount: recipes.length,
+            itemBuilder: (context, index) {
+              return recipesCard(context, recipes[index]);
+            }
+          );
+        }
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kTeal,
+        child: Icon(Icons.add, color: Colors.white,),
+        onPressed: () {  _showButton(context); },),
+    );
+  }
 
-	Widget recipesCard(BuildContext context, Recipe recipe) {
-		return GestureDetector(
-			onTap: () {
-				Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetail(recipeName: recipe.name)));
-			},
-			child: Padding(
-				padding: const EdgeInsets.all(8.0),
-				child: Container(
-					width: MediaQuery.of(context).size.width,
-					height: 125,
-					child: Card(
-						child: Row(
-							children: <Widget>[
-								Container(
-									height: 125,
-									width: 100,
-									child: ClipRRect(
-										borderRadius: BorderRadius.circular(12),
-										child: Image.network(
-											recipe.image_link,
-											fit: BoxFit.cover,
-											errorBuilder: (context, error, stackTrace) {
-												return Image.asset('assets/images/image_not_found.jpg', fit: BoxFit.cover,);
-											}
-										),
-									),
-								),
-								SizedBox(width: 26,),
-								Column(
-									mainAxisAlignment: MainAxisAlignment.center,
-									crossAxisAlignment: CrossAxisAlignment.start,
-									children: <Widget>[
-										Text(recipe.name, style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
-										SizedBox(height: 4),
-										Container(
-											height: 2,
-											width: 75,
-											color: Colors.lightBlueAccent,
-										),
-										Text(recipe.author, style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
-										SizedBox(height: 4)
-								])
-							],
-						),
-					),
-				),
-			)
-		);
-	}
+  Future<void> _showButton(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, 
+      builder: (context) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            width: MediaQuery.of(context).size.width,
+            height: 600,
+            color: Colors.white,
+            child: RecipeForm()
+          )
+        ),
+      )
+    );
+  }
+
+  Widget recipesCard(BuildContext context, Recipe recipe) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetail( recipesData: recipe )));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 125,
+          child: Card(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  height: 125,
+                  width: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      recipe.image_link,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset('assets/images/image_not_found.jpg', fit: BoxFit.cover,);
+                      }
+                    ),
+                  ),
+                ),
+                SizedBox(width: 26,),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(recipe.name, style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
+                    SizedBox(height: 4),
+                    Container(
+                      height: 2,
+                      width: 75,
+                      color: Colors.lightBlueAccent,
+                    ),
+                    Text(recipe.author, style: TextStyle(fontSize: 16, fontFamily: 'Quicksand')),
+                    SizedBox(height: 4)
+                ])
+              ],
+            ),
+          ),
+        ),
+      )
+    );
+  }
 }
 
 class RecipeForm extends StatelessWidget {
-	const RecipeForm({super.key});
+  const RecipeForm({super.key});
 
-	@override
-	Widget build(BuildContext context) {
-		final formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
 
-		final TextEditingController nameController = TextEditingController();
-		final TextEditingController authorController = TextEditingController();
-		final TextEditingController imageUrlController = TextEditingController();
-		final TextEditingController recipeController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController authorController = TextEditingController();
+    final TextEditingController imageUrlController = TextEditingController();
+    final TextEditingController recipeController = TextEditingController();
 
-		return Padding(
-			padding: EdgeInsets.all(12),
-			child: Form(
-				key: formKey,
-				child: Column(
-					crossAxisAlignment: CrossAxisAlignment.start,
-					children: [
-						Text(
-							'Add new recipe', 
-							style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal),
-							),
-						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Recipe name', controller: nameController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe name'; } return null; }),
-						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Author', controller: authorController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an author'; } return null; }),
-						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Image URL', controller: imageUrlController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an image URL'; } return null; }),
-						SizedBox(height: 16,),
-						_buildTextField(labelText: 'Recipe', controller: recipeController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe'; } return null; }, maxLines: 4),
-						SizedBox(height: 16,),
-						Center(
-							child: ElevatedButton(
-								onPressed: () => {
-									if(formKey.currentState!.validate()) {
-										Navigator.pop(context)
-									}
-								},
-								style: ElevatedButton.styleFrom(
-									backgroundColor: Colors.teal,									
-									shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-								),
-								child: Text(
-									'Submit', 
-									style: TextStyle(
-										fontFamily: 'Quicksand', 
-										fontSize: 16, 
-										fontWeight: 
-										FontWeight.bold,
-										color: Colors.white
-									),),
-							),
-						)
-					],
-				),
-			),
-		);
-	}
+    return Padding(
+      padding: EdgeInsets.all(12),
+      child: Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Add new recipe', 
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal),
+              ),
+            SizedBox(height: 16,),
+            _buildTextField(labelText: 'Recipe name', controller: nameController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe name'; } return null; }),
+            SizedBox(height: 16,),
+            _buildTextField(labelText: 'Author', controller: authorController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an author'; } return null; }),
+            SizedBox(height: 16,),
+            _buildTextField(labelText: 'Image URL', controller: imageUrlController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an image URL'; } return null; }),
+            SizedBox(height: 16,),
+            _buildTextField(labelText: 'Recipe', controller: recipeController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe'; } return null; }, maxLines: 4),
+            SizedBox(height: 16,),
+            Center(
+              child: ElevatedButton(
+                onPressed: () => {
+                  if(formKey.currentState!.validate()) {
+                    Navigator.pop(context)
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,									
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                ),
+                child: Text(
+                  'Submit', 
+                  style: TextStyle(
+                    fontFamily: 'Quicksand', 
+                    fontSize: 16, 
+                    fontWeight: 
+                    FontWeight.bold,
+                    color: Colors.white
+                  ),),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
-	Widget _buildTextField({
-		required String labelText, 
-		required TextEditingController controller, 
-		required String? Function(String?)? validator,
-		int maxLines = 1
-	}) {
-		return TextFormField(
-			controller: controller,
-			validator: validator,
-			maxLines: maxLines,
-			decoration: InputDecoration(
-				labelText: labelText,
-				labelStyle: TextStyle(fontFamily: 'Quicksand', color: Colors.teal),
-				border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-				focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.teal, width: 1), borderRadius: BorderRadius.circular(10)),
-			),
-		);
-	}
+  Widget _buildTextField({
+    required String labelText, 
+    required TextEditingController controller, 
+    required String? Function(String?)? validator,
+    int maxLines = 1
+  }) {
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(fontFamily: 'Quicksand', color: Colors.teal),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.teal, width: 1), borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
 }

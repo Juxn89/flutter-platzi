@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book/helpers/logger.dart';
 import 'package:recipe_book/providers/recipes_provider.dart';
+import 'package:recipe_book/screens/favorites_screen.dart';
 import 'package:recipe_book/screens/home_screen.dart';
 
 void main() {
+	AppLoggerHelper.initialize();
   runApp(const MainApp());
 }
 
@@ -30,7 +33,7 @@ class RecipeBook extends StatelessWidget {
 	@override
 	Widget build(BuildContext context){ 
 		return DefaultTabController(
-			length: 1, 
+			length: 2, 
 			child: Scaffold(
 			appBar: AppBar(
 				backgroundColor: Colors.teal,
@@ -39,11 +42,13 @@ class RecipeBook extends StatelessWidget {
 					indicatorColor: Colors.white,
 					labelColor: Colors.white,
 					tabs: [
-						Tab( icon: Icon(Icons.home), text: 'Home',)
+						Tab( icon: Icon(Icons.home), text: 'Home',),
+						Tab( icon: Icon(Icons.favorite), text: 'Favorites',)
 				]),
 			),
 			body: TabBarView(children: [
-				HomeScreen()
+				HomeScreen(),
+				FavoriteScreen(),
 			])
 		));
 	}

@@ -1,0 +1,27 @@
+{
+  "name": "flutter-platzi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juxn89/flutter-platzi.git"
+  },
+  "keywords": [],
+  "author": "juan.gomez",
+  "license": "ISC",
+	"dependencies": {
+		"express": "4.18.2",
+    "nanoid": "4.0.0",
+    "body-parser": "1.20.2",
+		"uuid": "9.0.0"
+
+	},
+  "bugs": {
+    "url": "https://github.com/Juxn89/flutter-platzi/issues"
+  },
+  "homepage": "https://github.com/Juxn89/flutter-platzi#readme"
+}

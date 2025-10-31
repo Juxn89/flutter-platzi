@@ -47,10 +47,9 @@ class RecipesProvider extends ChangeNotifier {
 		final isFavorite = favotireRecipe.contains(recipe);
 
 		try {
-			final response = isFavorite 
-				? await http.delete(RECIPE_URL, body: json.encode({"id": recipe.id}))
-				: await http.post(RECIPE_URL, body: json.encode(recipe.toJSON()));
-
+			final TOGGLE_FAVORITE_URL = Uri.parse( '$RECIPE_URL/${recipe.id}' );
+			final response = await http.patch(TOGGLE_FAVORITE_URL, body: json.encode({"isFavorite": !isFavorite}));
+			
 				if(response.statusCode == 200){
 					if(isFavorite){
 						favotireRecipe.remove(recipe);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book/l10n/app_localizations.dart';
 import 'package:recipe_book/models/recipe_model.dart';
 import 'package:recipe_book/providers/recipes_provider.dart';
 import 'package:recipe_book/screens/recipe_detail.dart';
+import 'package:recipe_book/l10n/app_localizations.dart';
 
 class FavoriteScreen extends StatelessWidget {
 	const FavoriteScreen({ super.key });
@@ -16,12 +18,12 @@ class FavoriteScreen extends StatelessWidget {
 					final favorites = recipeProvider.favotireRecipe;
 
 					return favorites.isEmpty
-						? Center(child: Text('No favorites recipes'))
+						? Center(child: Text( AppLocalizations.of(context)!.noRecipes ))
 						: ListView.builder(
 							itemCount: favorites.length,
 							itemBuilder: (context, index) {
 								final recipe = favorites[index];
-								FavoriteRecipeCard(recipe: recipe,);
+								return FavoriteRecipeCard(recipe: recipe,);
 							},
 						);
 				},

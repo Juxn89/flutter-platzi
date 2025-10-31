@@ -1,0 +1,15 @@
+{
+	"@@locale": "en",
+	"title": "Recipe book",
+	"noRecipes": "There are no recipes available 😭.",
+	"addNewRecipeLabel": "Add new recipe",
+	"recipeNameLabel": "Recipe name",
+	"recipeNameLabelError": "Please enter a recipe name",
+	"authorLabel": "Author",
+	"authorLabelError": "Please enter an author",
+	"imageURLLabel": "Image URL",
+	"imageURLLabelError": "Please enter an image URL",
+	"recipeLabel": "Recipe",
+	"recipeLabelError": "Please enter a recipe",
+	"submitRecipeButton": "Save recipe"
+}

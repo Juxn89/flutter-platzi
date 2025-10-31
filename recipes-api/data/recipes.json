@@ -1,134 +1,135 @@
 {
   "recipes": [
     {
-      "name": "Espaguetis a la Carbonara",
+      "name": "Spaghetti Carbonara",
       "author": "Chef María López",
       "image_link": "https://static.platzi.com/media/uploads/Espagueti_2619917177.jpeg",
       "recipe": [
-        "Cuece los espaguetis en agua con sal hasta que estén al dente.",
-        "En un bol, bate huevos y añade queso parmesano rallado.",
-        "Fríe panceta en una sartén hasta que esté crujiente.",
-        "Mezcla los espaguetis con la panceta y la mezcla de huevo y queso.",
-        "Sirve con más queso y pimienta negra al gusto."
+        "Cook the spaghetti in salted water until al dente.",
+        "In a bowl, beat eggs and add grated Parmesan cheese.",
+        "Fry pancetta in a pan until crispy.",
+        "Mix the spaghetti with the pancetta and the egg and cheese mixture.",
+        "Serve with more cheese and black pepper to taste."
       ],
-      "id": "479a2a7e-ebbb-4ee7-850e-40ed434db4b0"
+      "id": "7a261db6-ec9d-44d7-96f6-d02318174bf3",
+      "favorite": true
     },
     {
-      "name": "Ensalada César",
+      "name": "Caesar Salad",
       "author": "Chef Juan Martínez",
       "image_link": "https://static.platzi.com/media/uploads/cesar_858569da19.jpeg",
       "recipe": [
-        "Lava y corta la lechuga romana.",
-        "Añade crutones y queso parmesano rallado.",
-        "Prepara la salsa con mayonesa, ajo, limón, anchoas y queso parmesano.",
-        "Vierte la salsa sobre la lechuga y mezcla bien.",
-        "Agrega más parmesano al gusto antes de servir."
+        "Wash and chop the romaine lettuce.",
+        "Add croutons and grated Parmesan cheese.",
+        "Prepare the dressing with mayonnaise, garlic, lemon, anchovies, and Parmesan cheese.",
+        "Pour the dressing over the lettuce and toss well.",
+        "Add more Parmesan to taste before serving."
       ],
-      "id": "538b9721-8a96-4ce9-a30b-3670ff22bb90"
+      "id": "4f10f65d-ca8b-4da8-9e82-10ca1762724d"
     },
     {
-      "name": "Paella Valenciana",
+      "name": "Valencian Paella",
       "author": "Chef Ana González",
       "image_link": "https://static.platzi.com/media/uploads/paella_4b9d56f036.jpeg",
       "recipe": [
-        "Sofríe pollo y conejo en una paellera hasta dorar.",
-        "Añade judía verde, garrofón y tomate triturado.",
-        "Agrega arroz y caldo de pollo.",
-        "Incorpora azafrán, sal y pimentón.",
-        "Cocina a fuego lento hasta que el arroz esté en su punto."
+        "Sauté chicken and rabbit in a paella pan until browned.",
+        "Add green beans, garrofón, and crushed tomato.",
+        "Add rice and chicken broth.",
+        "Incorporate saffron, salt, and paprika.",
+        "Cook over low heat until the rice is done."
       ],
-      "id": "3e6da926-0e83-4c02-8945-dddaa342b537"
+      "id": "1f084ff1-359f-4845-84f7-84089c7456ce"
     },
     {
-      "name": "Tacos al Pastor",
+      "name": "Al Pastor Tacos",
       "author": "Chef Luis Ramírez",
       "image_link": "https://static.platzi.com/media/uploads/tacos_6e6b075d0f.jpeg",
       "recipe": [
-        "Marina la carne de cerdo en una mezcla de achiote, piña y especias.",
-        "Cocina la carne en una parrilla o sartén hasta dorar.",
-        "Corta la carne en trozos pequeños.",
-        "Sirve la carne en tortillas de maíz con piña, cebolla y cilantro.",
-        "Acompaña con salsa verde y limón."
+        "Marinate the pork in a mixture of achiote, pineapple, and spices.",
+        "Cook the meat on a grill or skillet until browned.",
+        "Cut the meat into small pieces.",
+        "Serve the meat on corn tortillas with pineapple, onion, and cilantro.",
+        "Accompany with green salsa and lime."
       ],
-      "id": "78887764-b728-4cb9-8882-02a7feda8297"
+      "id": "901d9d21-aa6d-4ef8-8bbd-c85b113a8890"
     },
     {
-      "name": "Sushi de Salmón",
+      "name": "Salmon Sushi",
       "author": "Chef Kazuo Tanaka",
       "image_link": "https://static.platzi.com/media/uploads/sushi_d2a9cca7f1.jpeg",
       "recipe": [
-        "Lava y cocina el arroz para sushi.",
-        "Mezcla el arroz cocido con vinagre de arroz, azúcar y sal.",
-        "Corta el salmón en tiras delgadas.",
-        "Forma pequeñas bolas de arroz y coloca una tira de salmón encima.",
-        "Sirve con salsa de soja y wasabi."
+        "Wash and cook the sushi rice.",
+        "Mix the cooked rice with rice vinegar, sugar, and salt.",
+        "Cut the salmon into thin strips.",
+        "Form small rice balls and place a strip of salmon on top.",
+        "Serve with soy sauce and wasabi."
       ],
-      "id": "5d91227d-a90a-4f82-8aa2-0ef800a0e15b"
+      "id": "28740fa9-073f-4089-a701-24fbb74fed7e"
     },
     {
-      "name": "Curry de Pollo",
+      "name": "Chicken Curry",
       "author": "Chef Priya Sharma",
       "image_link": "https://static.platzi.com/media/uploads/curry_a06bf8ce16.jpeg",
       "recipe": [
-        "Sofríe cebolla, ajo y jengibre en una sartén.",
-        "Añade las especias: cúrcuma, comino, y garam masala.",
-        "Agrega el pollo y cocina hasta dorar.",
-        "Vierte leche de coco y cocina a fuego lento hasta que el pollo esté tierno.",
-        "Sirve con arroz basmati y cilantro fresco."
+        "Sauté onion, garlic, and ginger in a pan.",
+        "Add the spices: turmeric, cumin, and garam masala.",
+        "Add the chicken and cook until browned.",
+        "Pour in coconut milk and simmer until the chicken is tender.",
+        "Serve with basmati rice and fresh cilantro."
       ],
-      "id": "91773d2c-25f8-4c7e-8549-8ea61cd5b4f4"
+      "id": "faf2e193-3c9a-4ed2-939c-a4157b03f88e"
     },
     {
-      "name": "Pizza Margarita",
+      "name": "Margherita Pizza",
       "author": "Chef Marco Rossi",
       "image_link": "https://static.platzi.com/media/uploads/flutter_pizza_a9b42f3711.jpg",
       "recipe": [
-        "Prepara una base de pizza con harina, agua y levadura.",
-        "Extiende la masa y cubre con salsa de tomate.",
-        "Añade queso mozzarella y albahaca fresca.",
-        "Hornea a 220°C hasta que el queso esté derretido y la masa crujiente.",
-        "Sirve caliente y disfruta."
+        "Prepare a pizza base with flour, water, and yeast.",
+        "Roll out the dough and cover with tomato sauce.",
+        "Add mozzarella cheese and fresh basil.",
+        "Bake at 220°C until the cheese is melted and the crust is crispy.",
+        "Serve hot and enjoy."
       ],
-      "id": "19256189-2b54-46de-8e1e-5af3e37341d1"
+      "id": "ce6a42c3-5f1c-480a-9bfc-72f35ad9fecd"
     },
     {
-      "name": "Ramen Japonés",
+      "name": "Japanese Ramen",
       "author": "Chef Haruto Sato",
       "image_link": "https://static.platzi.com/media/uploads/ramen_711b4f6e26.jpeg",
       "recipe": [
-        "Cocina el caldo con huesos de cerdo, jengibre y ajo durante varias horas.",
-        "Cocina los fideos de ramen en agua hirviendo.",
-        "Sirve los fideos en el caldo caliente.",
-        "Añade toppings como huevo cocido, cebolleta y carne de cerdo.",
-        "Acompaña con salsa de soja y aceite de sésamo."
+        "Cook the broth with pork bones, ginger, and garlic for several hours.",
+        "Cook the ramen noodles in boiling water.",
+        "Serve the noodles in the hot broth.",
+        "Add toppings such as a boiled egg, scallions, and pork.",
+        "Accompany with soy sauce and sesame oil."
       ],
-      "id": "12d3b0f4-6148-4595-8025-8ae0272954dc"
+      "id": "d898551d-7ac7-46e4-a6e9-4d8ba0ef938d"
     },
     {
-      "name": "Hamburguesa Clásica",
+      "name": "Classic Burger",
       "author": "Chef Tomás Pérez",
       "image_link": "https://example.com/images/hamburguesa_clasica.jpg",
       "recipe": [
-        "Forma la carne molida en hamburguesas y sazona con sal y pimienta.",
-        "Cocina las hamburguesas en una parrilla o sartén.",
-        "Tuesta los panes de hamburguesa.",
-        "Coloca la carne en el pan con queso, lechuga, tomate y cebolla.",
-        "Acompaña con papas fritas y condimentos al gusto."
+        "Form the ground beef into patties and season with salt and pepper.",
+        "Cook the burgers on a grill or skillet.",
+        "Toast the burger buns.",
+        "Place the meat in the bun with cheese, lettuce, tomato, and onion.",
+        "Serve with fries and condiments to taste."
       ],
-      "id": "86019113-3949-4887-9752-e27b93b727e7"
+      "id": "9dbd909c-ab50-4111-ac7e-e1ee88f13763"
     },
     {
-      "name": "Brownies de Chocolate",
+      "name": "Chocolate Brownies",
       "author": "Chef Sofía Durán",
       "image_link": "https://static.platzi.com/media/uploads/Brownies_2ed8f0e619.jpeg",
       "recipe": [
-        "Derrite chocolate y mantequilla juntos.",
-        "Bate los huevos con azúcar y mezcla con el chocolate derretido.",
-        "Añade harina y nueces picadas.",
-        "Vierte la mezcla en un molde y hornea a 180°C por 25 minutos.",
-        "Corta en cuadros y sirve."
+        "Melt chocolate and butter together.",
+        "Beat the eggs with sugar and mix with the melted chocolate.",
+        "Add flour and chopped nuts.",
+        "Pour the batter into a pan and bake at 180°C for 25 minutes.",
+        "Cut into squares and serve."
       ],
-      "id": "e2e49e7e-d97c-470c-af04-c78c63e7a1b1"
+      "id": "806b33b0-b66e-4235-9c2f-33ea6443bd26"
     }
   ]
 }

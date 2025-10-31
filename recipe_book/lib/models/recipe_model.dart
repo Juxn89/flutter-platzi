@@ -6,6 +6,7 @@ class Recipe {
 	String author;
 	String image_link;
 	List<String> recipe;
+	bool isFavorite = false;
 
 	Recipe({
 		required this.id,
@@ -13,6 +14,7 @@ class Recipe {
 		required this.author,
 		required this.image_link,
 		required this.recipe,
+		required this.isFavorite,		
 	});
 
 	factory Recipe.fromJSON(Map<String, dynamic> json){
@@ -22,6 +24,7 @@ class Recipe {
 			author: json['author'],
 			image_link: json['image_link'],
 			recipe: List<String>.from(json['recipe']),
+			isFavorite: json['isFavorite'] ?? false,
 		);
 	}
 
@@ -32,6 +35,7 @@ class Recipe {
 			'author': author,
 			'image_link': image_link,
 			'recipe': recipe,
+			'isFavorite': isFavorite,
 		};
 	}
 

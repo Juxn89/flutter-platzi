@@ -1,0 +1,15 @@
+{
+	"@@locale": "es",
+	"title": "Recetario",
+	"noRecipes": "No hay recetas disponibles 😭.",
+	"addNewRecipeLabel": "Nueva receta",
+	"recipeNameLabel": "Nombre",
+	"recipeNameLabelError": "Agregue el nombre",
+	"authorLabel": "Autor",
+	"authorLabelError": "Agregue el autor",
+	"imageURLLabel": "Image URL",
+	"imageURLLabelError": "Agregue la URL de la imagen",
+	"recipeLabel": "Receta",
+	"recipeLabelError": "Agregue la receta",
+	"submitRecipeButton": "Guardar"
+}

@@ -4,6 +4,7 @@ import 'package:recipe_book/models/recipe_model.dart';
 import 'package:recipe_book/providers/recipes_provider.dart';
 import 'recipe_detail.dart';
 import 'package:recipe_book/const/colors.dart';
+import 'package:recipe_book/l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ super.key });
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           final recipes = provider.recipes ?? [];
 
           if(recipes.isEmpty) {
-            return Center(child: Text('There are no recipes available 😭.'));
+            return Center(child: Text( AppLocalizations.of(context)!.noRecipes ));
           }
 
           return ListView.builder(
@@ -147,17 +148,17 @@ class RecipeForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Add new recipe', 
+              AppLocalizations.of(context)!.addNewRecipeLabel, 
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal),
               ),
             SizedBox(height: 16,),
-            _buildTextField(labelText: 'Recipe name', controller: nameController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe name'; } return null; }),
+            _buildTextField(labelText: AppLocalizations.of(context)!.recipeNameLabel, controller: nameController, validator: (value) { if(value == null || value.isEmpty) { return AppLocalizations.of(context)!.recipeNameLabelError; } return null; }),
             SizedBox(height: 16,),
-            _buildTextField(labelText: 'Author', controller: authorController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an author'; } return null; }),
+            _buildTextField(labelText: AppLocalizations.of(context)!.authorLabel, controller: authorController, validator: (value) { if(value == null || value.isEmpty) { return AppLocalizations.of(context)!.authorLabelError; } return null; }),
             SizedBox(height: 16,),
-            _buildTextField(labelText: 'Image URL', controller: imageUrlController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter an image URL'; } return null; }),
+            _buildTextField(labelText: AppLocalizations.of(context)!.imageURLLabel, controller: imageUrlController, validator: (value) { if(value == null || value.isEmpty) { return AppLocalizations.of(context)!.imageURLLabelError; } return null; }),
             SizedBox(height: 16,),
-            _buildTextField(labelText: 'Recipe', controller: recipeController, validator: (value) { if(value == null || value.isEmpty) { return 'Please enter a recipe'; } return null; }, maxLines: 4),
+            _buildTextField(labelText: AppLocalizations.of(context)!.recipeLabel, controller: recipeController, validator: (value) { if(value == null || value.isEmpty) { return AppLocalizations.of(context)!.recipeLabelError; } return null; }, maxLines: 4),
             SizedBox(height: 16,),
             Center(
               child: ElevatedButton(
@@ -171,7 +172,7 @@ class RecipeForm extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                 ),
                 child: Text(
-                  'Submit', 
+                  AppLocalizations.of(context)!.submitRecipeButton, 
                   style: TextStyle(
                     fontFamily: 'Quicksand', 
                     fontSize: 16, 

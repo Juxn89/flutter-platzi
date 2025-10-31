@@ -13,8 +13,30 @@ class RecipeDetail extends StatefulWidget {
 	State<RecipeDetail> createState() => _RecipeDetailState();
 }
 
-class _RecipeDetailState extends State<RecipeDetail> {
+class _RecipeDetailState extends State<RecipeDetail> with SingleTickerProviderStateMixin {
 	bool isFavorite = false;
+	late AnimationController _animationController;
+	late Animation<double> _scaleAnimation;
+
+	@override
+  void initState(){
+		super.initState();
+
+		_animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+
+		_scaleAnimation = Tween<double>(begin: 1.0, end: 1.5)
+			.animate(
+				CurvedAnimation(parent: _animationController, curve: Curves.easeInOut)
+			)..addStatusListener((status){
+				if(status == AnimationStatus.completed) { _animationController.reverse(); }
+			});
+	}
+
+	@override
+	void dispose(){
+		_animationController.dispose();
+		super.dispose();
+	}
 
 	@override
   void didChangeDependencies() {
@@ -32,7 +54,7 @@ class _RecipeDetailState extends State<RecipeDetail> {
 				title: Text(widget.recipesData.name, style: TextStyle(color: Colors.white),),
 				backgroundColor: Colors.teal,
 				leading: IconButton(
-					onPressed: () => { Navigator.pop(context) }, 
+					onPressed: () => { Navigator.pop(context) },
 					icon: Icon(Icons.arrow_back, color: Colors.white,)
 				),
 				actions: [
@@ -43,8 +65,34 @@ class _RecipeDetailState extends State<RecipeDetail> {
 							  isFavorite = !isFavorite;
 							});
 						}, 
-						icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border))
+						icon: ScaleTransition(
+							scale: _scaleAnimation,
+							child: Icon(
+								isFavorite ? Icons.favorite : Icons.favorite_border,
+								color: Colors.red,
+							),
+						)
+					)
 				],
+			),
+			body: Padding(
+				padding: EdgeInsets.all(18),
+				child: Column(
+					children: [
+						Image.network(
+							widget.recipesData.image_link,
+							errorBuilder: (context, error, stackTrace) {
+								return Image.asset('assets/images/image_not_found.jpg');
+							},
+						),
+						Text(widget.recipesData.name),
+						SizedBox(height: 8,),
+						Text('by ${widget.recipesData.author}'),
+						SizedBox(height: 8,),
+						Text('Recipes steps:'),
+						for(var step in widget.recipesData.recipe) Text("- $step")
+					],
+				),
 			),
 		);
 	}
